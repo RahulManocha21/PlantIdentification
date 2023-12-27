@@ -7,8 +7,8 @@ genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
 
 def get_gemini_response(input, image):
     model = genai.GenerativeModel('gemini-pro-vision')
-    response = model.generate_content([input, image], stream=True)
-    return response
+    response = model.generate_content([input, image])
+    return response.text
 
 # initialize our streamlit app
 st.set_page_config(page_title="🪴 Plant Identification")
@@ -37,8 +37,7 @@ if submit:
 
         # Display the response
         st.subheader("Response : ")
-        for chunks in response:
-            st.write(chunks.text)
+        st.write(response)
     else:
         st.warning("Please provide both a question and an image.")
 
