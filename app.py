@@ -17,10 +17,13 @@ st.header("Plant Identification")
 # Input for the user to ask a question
 input_question = st.text_input("Ask a question about the plant")
 
-# File uploader for the plant image
-uploaded_file = st.file_uploader("Choose an 🪴 image...", type=["jpg", "jpeg", "png"])
-image = None
+option = st.radio("Select image source:", ("Upload Image", "Capture from Camera"))
 
+if option == "Upload Image":
+    uploaded_file = st.file_uploader("Choose an 🪴 image...", type=["jpg", "jpeg", "png"])
+elif option =='Capture from Camera':
+    uploaded_file = st.camera_input('Camera Access', label_visibility="visible")
+    
 # Display the uploaded image
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
