@@ -32,7 +32,7 @@ submit = st.button("Get Response")
 # If the button is clicked
 if submit:
     if input_question and image:
-        input_text = f"You are a botanical expert, study the image and respond accordingly. {input_question}"
+        input_text = f"You are a botanical expert, study the image and respond accordingly. If there is no plant in the image, response as No plant found. else {input_question}"
         response = get_gemini_response(input_text, image)
 
         # Display the response
