@@ -12,7 +12,7 @@ def get_gemini_response(input, image):
 
 # initialize our streamlit app
 st.set_page_config(page_title="🪴 Plant Identification")
-st.header("Plant Identification")
+st.header("Plant Identification ☘️")
 
 # Input for the user to ask a question
 input_question = st.text_input("Ask a question about the plant")
