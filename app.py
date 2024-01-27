@@ -15,7 +15,7 @@ st.set_page_config(page_title="🪴 Plant Identification")
 st.header("Plant Identification ☘️")
 
 # Input for the user to ask a question
-input_question = st.text_input("Ask a question about the plant")
+input_question = st.text_input("Ask a question about the plant", placeholder='Hint: You may ask about the plant health and if unhealthy ask for its cure.')
 
 option = st.radio("Select image source:", ("Upload Image", "Capture from Camera"))
 
