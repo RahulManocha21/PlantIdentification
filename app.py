@@ -35,7 +35,7 @@ submit = st.button("Get Response")
 # If the button is clicked
 if submit:
     if input_question and image:
-        input_text = f"You are a botanical expert, study the image and respond accordingly. If there is no plant in the image, respond as No plant found. else {input_question}, Write your answer in layman's terms with less technicalities, so everyone can understand. If user asking you for website to buy the pesticides for cure or plants in the image, then you should refer the product from Brecks website, Gurneys website, springhillnursery website only."
+        input_text = f"You are a botanical expert, study the image and respond accordingly. If there is no plant in the image, respond as No plant found. else {input_question}, Write your answer in layman's terms with less technicalities, so everyone can understand."
         response = get_gemini_response(input_text, image)
 
         # Display the response
