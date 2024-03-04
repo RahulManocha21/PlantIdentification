@@ -5,6 +5,7 @@ import google.generativeai as genai
 # Configure the API key directly (not from .env)
 genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
 
+
 def get_gemini_response(input, image):
     model = genai.GenerativeModel('gemini-pro-vision')
     response = model.generate_content([input, image])
@@ -33,21 +34,23 @@ LengthSpace =  st.sidebar.number_input("Enter length of your garden (In Feet)")
 BreadthSpace =  st.sidebar.number_input("Enter breadth of your garden (In Feet)")
 # Input for the user to ask a question
 input_question = st.text_input("Ask a question about the plant", placeholder='Hint: You may ask about the plant health and if unhealthy ask for its cure.')
+image_choice = st.toggle("Do u have any plant image to share")
 
-option = st.radio("Select image source:", ("Upload Image", "Capture from Camera"))
 
-if option == "Upload Image":
-    uploaded_file = st.file_uploader("Choose an 🪴 image...", type=["jpg", "jpeg", "png"])
-elif option =='Capture from Camera':
-    uploaded_file = st.camera_input('Camera Access', label_visibility="visible")
-    
-
-# Display the uploaded image
-if uploaded_file is not None:
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image.", use_column_width=True)
+if image_choice: 
+    option = st.radio("Select image source:", ("Upload Image", "Capture from Camera"))
+    if option == "Upload Image":
+        uploaded_file = st.file_uploader("Choose an 🪴 image...", type=["jpg", "jpeg", "png"])
+    elif option =='Capture from Camera':
+        uploaded_file = st.camera_input('Camera Access', label_visibility="visible")
+    # Display the uploaded image
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded Image.", use_column_width=True)
 else:
     image = None
+
+
 
 # Button to trigger the response
 submit = st.button("Get Response")
