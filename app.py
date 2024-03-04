@@ -13,7 +13,7 @@ def get_gemini_response(input, image):
 # initialize our streamlit app
 st.set_page_config(page_title="🪴 Plant Identification")
 st.header("Plant Identification ☘️")
-st.sidebar.header('Fill the Details to get the accurate informations')
+st.sidebar.header('Fill the Details to get the Customized Response')
 countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia",
     "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin",
     "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
