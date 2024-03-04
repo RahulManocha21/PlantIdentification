@@ -10,10 +10,15 @@ def get_gemini_response(input, image):
     response = model.generate_content([input, image])
     return response.text
 
+def get_gemini_response(input):
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(input)
+    return response.text
+
 # initialize our streamlit app
 st.set_page_config(page_title="🪴 Plant Identification")
 st.header("Plant Identification ☘️")
-st.sidebar.header('Fill the Details to get the Customized Response')
+st.sidebar.header('Fill the Details to get the accurate informations')
 Location = st.sidebar.selectbox('Location', ["United States"])
 Gardening_Experience  = st.sidebar.selectbox('How much experience do you have with gardening?',['Beginner', 'Intermediate','Advanced'])
 PlantPrefrence = st.sidebar.multiselect("Select Plants:", ["🌸 Flowers","🌿 Herbs","🥦 Vegetables","🍓 Fruits","🌳 Trees","🌴 Shrubs","🌾 Grasses","🌵 Succulents","🌵 Cacti","🌿 Ferns","🌱 Mosses","🌿 Vines","💧 Aquatics","🌷 Bulbs","🌺 Orchids"])   
@@ -32,18 +37,21 @@ if option == "Upload Image":
     uploaded_file = st.file_uploader("Choose an 🪴 image...", type=["jpg", "jpeg", "png"])
 elif option =='Capture from Camera':
     uploaded_file = st.camera_input('Camera Access', label_visibility="visible")
+    
 
 # Display the uploaded image
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
+else:
+    image = None
 
 # Button to trigger the response
 submit = st.button("Get Response")
 
 # If the button is clicked
 if submit:
-    if image is not None and input_question is not None:
+    if input_question and image:
         input_text = f'''You are a botanical expert, study the image and respond accordingly. 
         If there is no plant in the image, respond as No plant found. else
         I am from {Location}, I am at {Gardening_Experience} level in gardening, I want to have {PlantPrefrence} in my garden.
@@ -57,7 +65,8 @@ if submit:
         # Display the response
         st.subheader("Response : ")
         st.write(response)
-    elif input_question is not None:
+
+    elif input_question:
         input_text = f'''You are a botanical expert,
         I am from {Location}, I am at {Gardening_Experience} level in gardening, I want to have {PlantPrefrence} in my garden.
         I want to do in {Style} style gardening.  My budget is {Budget}, time is {Time} and Maintenance preference is {Maintenance}. 
@@ -70,7 +79,8 @@ if submit:
         # Display the response
         st.subheader("Response : ")
         st.write(response)
-    elif image is not None:
+
+    elif image:
         input_text = f'''You are a botanical expert, study the image and respond accordingly. 
         If there is no plant in the image, respond as No plant found. else
         I am from {Location}, I am at {Gardening_Experience} level in gardening, I want to have {PlantPrefrence} in my garden.
