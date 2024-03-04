@@ -41,6 +41,7 @@ if submit:
         # Display the response
         st.subheader("Response : ")
         st.write(response)
+        st.write('https://www.springhillnursery.com/')
     else:
         st.warning("Please provide both a question and an image.")
 
