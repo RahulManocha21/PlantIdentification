@@ -141,7 +141,7 @@ if submit:
          If there is no plant in the image, respond as No plant found.
         else tell me in 1 words from which category the plant in the image belongs to"""
         Product_category = get_gemini_vision(prompt, image, Stream=False)
-        st.subheader('Category')
+        st.subheader('Product Which You May Like')
         for i in URL['loc']:
             if Product_category.text.replace('.','').lower().strip() in i.lower():
                 matchedURL.append(i)
@@ -158,9 +158,7 @@ if submit:
     
     if matchedURL:
         st.write(Product_category.text)
-        st.write(f'Buy your Favourite gardens decor or plants from the reliable Web Stores {[i for i in matchedURL]}')
+        st.write(f'Buy your Favourite gardens decor or plants from the reliable Web Stores {matchedURL}')
     else:
-        st.write()
-
-    
+        st.write('No Match')
 
