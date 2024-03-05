@@ -23,7 +23,8 @@ st.set_page_config(page_title="🪴 Garden Answers AI")
     
 tab1, tab2 = st.tabs(["Garden Answers AI", "Ask your Questions"])
 with tab1:
-    st.header("Garden Answers AI☘️")
+    st.markdown("""<h1 style="color:red; text-align:center  "> Garden Answers AI☘️</h1> """, unsafe_allow_html=True)
+    # st.header("Garden Answers AI☘️")
     # st.header("Accuracy is a mind-reading act; just drop some hints, and We'll perform the magic.")
     df = pd.read_csv('blog.csv', header=None, names=['loc'])
     BlogURL = df['loc'].tolist()
