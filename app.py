@@ -140,6 +140,7 @@ if submit:
         prompt = """You are a botanical expert, study the image,
          If there is no plant in the image, respond as No plant found.
         else tell me in 1 words from which category the plant in the image belongs to"""
+        time.sleep(2)
         Product_category = get_gemini_vision(prompt, image, Stream=False)
         st.subheader('Product Which You May Like')
         for i in URL['loc']:
@@ -150,6 +151,7 @@ if submit:
         prompt = f"""You are a botanical expert, study the user input, the input is 
         {input_question}. You have to tell me more relevant only 1 plant we can suggest to the user to buy
         provide your answer in only 1 word"""
+        time.sleep(2)
         Product_category = get_gemini_pro(prompt, Stream=False)
         st.subheader('Product Which You May Like')
         for i in URL['loc']:
