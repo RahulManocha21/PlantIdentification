@@ -51,7 +51,7 @@ with tab1:
     
     a,b,c = st.columns([1,2,1])
     with b:
-        Get = st.button("Get Your Customized Gardening Planner")
+        Get = st.button("Get Your Customized Gardening Plan")
     if Get:
         if LengthSpace != 0.00 and BreadthSpace !=0.00:
             prompt = f'''You are a botanical expert, 
@@ -68,7 +68,7 @@ with tab1:
             response = get_gemini_pro(prompt, Stream=True)
 
             # Display the response
-            st.subheader("Your Customized Planner : ")
+            st.subheader("Your Customized Plan: ")
             st.write_stream(i.text for i in response)
         else:
             st.warning("Please provide valid dimensions of your garden!")
