@@ -4,9 +4,8 @@ import google.generativeai as genai
 import os
 import time
 import pandas as pd
-# Configure the API key directly (not from .env)
-genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
 
+genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
 
 def get_gemini_vision(input, image, Stream):
     model = genai.GenerativeModel('gemini-pro-vision')
