@@ -49,7 +49,9 @@ with tab1:
         LengthSpace =  container2.number_input("Enter length of your garden (In Feet)")
         BreadthSpace =  container2.number_input("Enter breadth of your garden (In Feet)")
     
-    Get = st.button("Get Your Customized Gardening Planner")
+    a,b,c = st.columns([1,2,1])
+    with b:
+        Get = st.button("Get Your Customized Gardening Planner")
     if Get:
         if LengthSpace != 0.00 and BreadthSpace !=0.00:
             prompt = f'''You are a botanical expert, 
@@ -59,14 +61,14 @@ with tab1:
                 Provide me a detailed Gardening Plan with the plant names and there life time care.
                 I want the Response having the structure
                 "Details Summary"
-                "Detailed Planner according to the inputs"
+                "Step by step Detailed Planner according to the inputs"
                 "Provide best 5 relevant resources from this list {BlogURL}"
                 '''
                 
             response = get_gemini_pro(prompt, Stream=True)
 
             # Display the response
-            st.subheader("Response : ")
+            st.subheader("Your Customized Planner : ")
             st.write_stream(i.text for i in response)
         else:
             st.warning("Please provide valid dimensions of your garden!")
@@ -101,7 +103,8 @@ with tab2:
                 I want the Response having the structure
                 "Short Summary which let me know that you understand my question successfully"
                 "Detailed answers according to the question and provided image"
-                "Provide best 5 relevant category links from this list {CatURL} from where I can buy new plants"
+                "Provide best 5 relevant category links from this list {CatURL} 
+                from where I can buy new plants that is shown in the image"
                 '''
                 response = get_gemini_vision(prompt, image, Stream=True)
                 # Display the response
