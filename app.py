@@ -83,7 +83,7 @@ with tab2:
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image.",width=50, use_column_width=True)
     dfa = pd.read_csv('category.csv', header=None, names=['loc'])
-    CatURL = df['loc'].tolist()
+    CatURL = dfa['loc'].tolist()
     CatURL.remove('loc')
     # Button to trigger the response
     submit = st.button("Get Response")
