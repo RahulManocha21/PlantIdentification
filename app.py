@@ -31,20 +31,22 @@ with tab1:
     col1, col2= st.columns(2)
     with col1:
     # detailed inputs for customized response
-        Location = st.selectbox('Location', ["United States"])
-        zone = st.selectbox('Hardiness Zone', ["Zone 1a", "Zone 1b", "Zone 2a", "Zone 2b", "Zone 3a", "Zone 3b", "Zone 4a", "Zone 4b", "Zone 5a", "Zone 5b", "Zone 6a", "Zone 6b", "Zone 7a", "Zone 7b", "Zone 8a", "Zone 8b", "Zone 9a", "Zone 9b", "Zone 10a", "Zone 10b", "Zone 11a", "Zone 11b", "Zone 12a", "Zone 12b", "Zone 13a", "Zone 13b"])
-        soiltype = st.selectbox('Soil Type', ['🌱 Clay', '🪨 Silty', '⛱️ Sandy', '🌿 Loam'])
-        Gardening_Experience  = st.selectbox('How much experience do you have with gardening?',['Beginner', 'Intermediate','Advanced'])
-        PlantPrefrence = st.multiselect("Select Plants:", ["🌸 Flowers","🌿 Herbs","🥦 Vegetables","🍓 Fruits","🌳 Trees","🌴 Shrubs","🌾 Grasses","🌵 Succulents","🌵 Cacti","🌿 Ferns","🌱 Mosses","🌿 Vines","💧 Aquatics","🌷 Bulbs","🌺 Orchids"])   
-        Style  = st.selectbox("🌿 Gardening Style", ('Organic', 'Conventional'))
+        container = st.container(border=True)
+        Location = container.selectbox('Location', ["United States"])
+        zone = container.selectbox('Hardiness Zone', ["Zone 1a", "Zone 1b", "Zone 2a", "Zone 2b", "Zone 3a", "Zone 3b", "Zone 4a", "Zone 4b", "Zone 5a", "Zone 5b", "Zone 6a", "Zone 6b", "Zone 7a", "Zone 7b", "Zone 8a", "Zone 8b", "Zone 9a", "Zone 9b", "Zone 10a", "Zone 10b", "Zone 11a", "Zone 11b", "Zone 12a", "Zone 12b", "Zone 13a", "Zone 13b"])
+        soiltype = container.selectbox('Soil Type', ['🌱 Clay', '🪨 Silty', '⛱️ Sandy', '🌿 Loam'])
+        Gardening_Experience  = container.selectbox('How much experience do you have with gardening?',['Beginner', 'Intermediate','Advanced'])
+        PlantPrefrence = container.multiselect("Select Plants:", ["🌸 Flowers","🌿 Herbs","🥦 Vegetables","🍓 Fruits","🌳 Trees","🌴 Shrubs","🌾 Grasses","🌵 Succulents","🌵 Cacti","🌿 Ferns","🌱 Mosses","🌿 Vines","💧 Aquatics","🌷 Bulbs","🌺 Orchids"])   
+        Style  = container.selectbox("🌿 Gardening Style", ('Organic', 'Conventional'))
         
     with col2:
-        Budget  = st.selectbox("Gardening Budget 💰", ('Low', 'Medium', 'High'))
-        Time  = st.selectbox("Gardening Time ⏰", ('Low', 'Medium', 'High'))
-        Maintenance = st.selectbox("Maintenance Preference 🛠️", ('Low', 'Medium', 'High'))
-        Allergies = st.multiselect('Any Kind of Allergies?', ("Pollen", "Bees", "Insects", "Mold", "Dust", "Grass", "Trees", "Shrubs", "Flowers", "Weeds"))
-        LengthSpace =  st.number_input("Enter length of your garden (In Feet)")
-        BreadthSpace =  st.number_input("Enter breadth of your garden (In Feet)")
+        container2 = st.container(border=True)
+        Budget  = container2.selectbox("Gardening Budget 💰", ('Low', 'Medium', 'High'))
+        Time  = container2.selectbox("Gardening Time ⏰", ('Low', 'Medium', 'High'))
+        Maintenance = container2.selectbox("Maintenance Preference 🛠️", ('Low', 'Medium', 'High'))
+        Allergies = container2.multiselect('Any Kind of Allergies?', ("Pollen", "Bees", "Insects", "Mold", "Dust", "Grass", "Trees", "Shrubs", "Flowers", "Weeds"))
+        LengthSpace =  container2.number_input("Enter length of your garden (In Feet)")
+        BreadthSpace =  container2.number_input("Enter breadth of your garden (In Feet)")
     
     Get = st.button("Get Your Customized Gardening Planner")
     if Get:
