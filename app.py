@@ -17,13 +17,6 @@ def get_gemini_pro(input, Stream):
     response = model.generate_content(input, stream=Stream)
     return response
 
-def create_pdf(content):
-    with open('GardensAlivePlanner.pdf', 'w+b') as f:
-        pisa.pisaDocument(content, f)  
-    
-        # close output file
-
-
 #--------------------------------------------------------------------------------------------------------------------------------------------------------
 # initialize our streamlit app
 st.set_page_config(page_title="🪴 GardensAlive AI",initial_sidebar_state= "collapsed")
