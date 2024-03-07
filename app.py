@@ -24,7 +24,7 @@ st.set_page_config(page_title="🪴 GardensAlive AI",initial_sidebar_state= "col
 tab1, tab2, tab3 = st.tabs(["GardensAlive AI", "Ask your Questions", "Chat with AI Bot"])
 with tab1:
     try:
-        st.markdown("""<h1 style="color:#50EA03; text-align:center  "> GardensAlive <span style="color:red; >AI </span>☘️</h1> """, unsafe_allow_html=True)
+        st.markdown("""<h1 style="color:#50EA03; text-align:center  "> GardensAlive</h1><h1 style="color:red; >AI </h1>☘️ """, unsafe_allow_html=True)
         # st.header("Garden Answers AI☘️")
         # st.header("Accuracy is a mind-reading act; just drop some hints, and We'll perform the magic.")
         df = pd.read_csv('blog.csv', header=None, names=['loc'])
