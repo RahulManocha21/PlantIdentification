@@ -87,6 +87,7 @@ with tab1:
                 st.warning("Please provide valid dimensions of your garden!")
     except Exception as e:
         st.info('AI is down due to high requests. Get Back to us after a moment.')
+        print(f"Error Occured {e}")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------- 
 with tab2:
     # Input for the user to ask a question
@@ -140,7 +141,7 @@ with tab2:
                 st.warning('Please provide atleast a question to get your answer.', icon="ℹ️")
     except Exception as e:
         st.info('AI is down due to high requests. Get Back to us after a moment.')
-        # st.warning(f'Error occurred: {e}')
+        print(f"Error Occured {e}")
 
 with tab3:
     
@@ -181,4 +182,5 @@ with tab3:
             st.session_state.messages.append({"role": "assistant", "content": textresponse})
     except Exception as e:
         st.info('AI is down due to high requests. Get Back to us after a moment.')
+        print(f"Error Occured {e}")
 
