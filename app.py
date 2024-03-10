@@ -94,7 +94,7 @@ with tab1:
                 else:
                     st.warning("Please provide valid dimensions of your garden!")
         else:
-            GetLast = st.button('Click if you've cultivated a solid gardening plan."')
+            GetLast = st.button("Click if you've cultivated a solid gardening plan.")
             if GetLast:
                 if validate_email(Email):
                     pass
