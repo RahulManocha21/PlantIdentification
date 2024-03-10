@@ -34,7 +34,7 @@ with tab1:
         df = pd.read_csv('blog.csv', header=None, names=['loc'])
         BlogURL = df['loc'].tolist()
         BlogURL.remove('loc')
-        New = st.toggle('Want to Generate New response')
+        New = st.toggle('Want to Generate New Plan')
         Email = st.text_input('Email Address')
         if New:
             col1, col2= st.columns(2)
