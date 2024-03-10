@@ -8,7 +8,7 @@ from pymongo.mongo_client import MongoClient
 import re
 
 genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
-Client = MongoClient("mongodb+srv://rahulmanocha21:mongodb@geminiresponse.f6hhnhi.mongodb.net/?retryWrites=true&w=majority&appName=GeminiResponse")
+Client = MongoClient(st.secrets["SecretKey"]["DbURL"])
 mydatabase = Client.ITDatabase
 table = mydatabase.GeminiResponseTable
 
@@ -94,7 +94,7 @@ with tab1:
                 else:
                     st.warning("Please provide valid dimensions of your garden!")
         else:
-            GetLast = st.button('GetLastResponse')
+            GetLast = st.button('Click if you already generate a Plan')
             if GetLast:
                 if validate_email(Email):
                     pass
