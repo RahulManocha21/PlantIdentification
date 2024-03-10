@@ -4,8 +4,13 @@ import google.generativeai as genai
 import os
 import time
 import pandas as pd
+from pymongo.mongo_client import MongoClient
+import re
 
 genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
+Client = MongoClient("mongodb+srv://rahulmanocha21:mongodb@geminiresponse.f6hhnhi.mongodb.net/?retryWrites=true&w=majority&appName=GeminiResponse")
+mydatabase = Client.ITDatabase
+table = mydatabase.GeminiResponseTable
 
 def get_gemini_vision(input, image, Stream):
     model = genai.GenerativeModel('gemini-pro-vision')
@@ -20,7 +25,6 @@ def get_gemini_pro(input, Stream):
 #--------------------------------------------------------------------------------------------------------------------------------------------------------
 # initialize our streamlit app
 st.set_page_config(page_title="🪴 GardensAlive AI",initial_sidebar_state= "collapsed")
-    
 tab1, tab2, tab3 = st.tabs(["GardensAlive AI", "Ask your Questions", "Chat with AI Bot"])
 with tab1:
     try:
@@ -30,64 +34,73 @@ with tab1:
         df = pd.read_csv('blog.csv', header=None, names=['loc'])
         BlogURL = df['loc'].tolist()
         BlogURL.remove('loc')
-        col1, col2= st.columns(2)
-        with col1:
-        # detailed inputs for customized response
-            container = st.container(border=True)
-            Location = container.selectbox('Location', ["United States"])
-            zone = container.selectbox('Hardiness Zone', ["Zone 1a", "Zone 1b", "Zone 2a", "Zone 2b", "Zone 3a", "Zone 3b", "Zone 4a", "Zone 4b", "Zone 5a", "Zone 5b", "Zone 6a", "Zone 6b", "Zone 7a", "Zone 7b", "Zone 8a", "Zone 8b", "Zone 9a", "Zone 9b", "Zone 10a", "Zone 10b", "Zone 11a", "Zone 11b", "Zone 12a", "Zone 12b", "Zone 13a", "Zone 13b"])
-            soiltype = container.selectbox('Soil Type', ['🌱 Clay', '🪨 Silty', '⛱️ Sandy', '🌿 Loam'])
-            Gardening_Experience  = container.selectbox('How much experience do you have with gardening?',['Beginner', 'Intermediate','Advanced'])
-            PlantPrefrence = container.multiselect("Select Plants:", ["🌸 Flowers","🌿 Herbs","🥦 Vegetables","🍓 Fruits","🌳 Trees","🌴 Shrubs","🌾 Grasses","🌵 Succulents","🌵 Cacti","🌿 Ferns","🌱 Mosses","🌿 Vines","💧 Aquatics","🌷 Bulbs","🌺 Orchids"])   
-            Style  = container.selectbox("🌿 Gardening Style", ('Organic', 'Conventional'))
+        New = st.toggle('Want to Generate New response')
+        Email = st.text_input('Email Address')
+        if New:
+            col1, col2= st.columns(2)
+            with col1:
+            # detailed inputs for customized response
+                container = st.container(border=True)
+                Location = container.selectbox('Location', ["United States"])
+                zone = container.selectbox('Hardiness Zone', ["Zone 1a", "Zone 1b", "Zone 2a", "Zone 2b", "Zone 3a", "Zone 3b", "Zone 4a", "Zone 4b", "Zone 5a", "Zone 5b", "Zone 6a", "Zone 6b", "Zone 7a", "Zone 7b", "Zone 8a", "Zone 8b", "Zone 9a", "Zone 9b", "Zone 10a", "Zone 10b", "Zone 11a", "Zone 11b", "Zone 12a", "Zone 12b", "Zone 13a", "Zone 13b"])
+                soiltype = container.selectbox('Soil Type', ['🌱 Clay', '🪨 Silty', '⛱️ Sandy', '🌿 Loam'])
+                Gardening_Experience  = container.selectbox('How much experience do you have with gardening?',['Beginner', 'Intermediate','Advanced'])
+                PlantPrefrence = container.multiselect("Select Plants:", ["🌸 Flowers","🌿 Herbs","🥦 Vegetables","🍓 Fruits","🌳 Trees","🌴 Shrubs","🌾 Grasses","🌵 Succulents","🌵 Cacti","🌿 Ferns","🌱 Mosses","🌿 Vines","💧 Aquatics","🌷 Bulbs","🌺 Orchids"])   
+                Style  = container.selectbox("🌿 Gardening Style", ('Organic', 'Conventional'))
+                
+            with col2:
+                container2 = st.container(border=True)
+                Budget  = container2.selectbox("Gardening Budget 💰", ('Low', 'Medium', 'High'))
+                Time  = container2.selectbox("Gardening Time ⏰", ('Low', 'Medium', 'High'))
+                Maintenance = container2.selectbox("Maintenance Preference 🛠️", ('Low', 'Medium', 'High'))
+                Allergies = container2.multiselect('Any Kind of Allergies?', ("Pollen", "Bees", "Insects", "Mold", "Dust", "Grass", "Trees", "Shrubs", "Flowers", "Weeds"))
+                LengthSpace =  container2.number_input("Enter length of your garden (In Feet)", step=5)
+                BreadthSpace =  container2.number_input("Enter breadth of your garden (In Feet)",step=5)
             
-        with col2:
-            container2 = st.container(border=True)
-            Budget  = container2.selectbox("Gardening Budget 💰", ('Low', 'Medium', 'High'))
-            Time  = container2.selectbox("Gardening Time ⏰", ('Low', 'Medium', 'High'))
-            Maintenance = container2.selectbox("Maintenance Preference 🛠️", ('Low', 'Medium', 'High'))
-            Allergies = container2.multiselect('Any Kind of Allergies?', ("Pollen", "Bees", "Insects", "Mold", "Dust", "Grass", "Trees", "Shrubs", "Flowers", "Weeds"))
-            LengthSpace =  container2.number_input("Enter length of your garden (In Feet)", step=5)
-            BreadthSpace =  container2.number_input("Enter breadth of your garden (In Feet)",step=5)
-        
-        a,b,c = st.columns([1,2,1])
-        with b:
-            Get = st.button("Get Your Customized Gardening Plan")
-        if Get:
-            if LengthSpace != 0.00 and BreadthSpace !=0.00:
-                prompt = f'''You are a botanical expert, 
-                    I am from {Location} and my zone is {zone}, Here type of soil is {soiltype}, I am at {Gardening_Experience} level in gardening, I want to have {PlantPrefrence} in my garden.
-                    I want to do in {Style} style gardening.  My budget is {Budget}, time is {Time} and Maintenance preference is {Maintenance}. 
-                    I am allergic from {Allergies}. I have {LengthSpace} X {BreadthSpace} feet space for my gardening region.
-                    Provide me a detailed Gardening Plan with the plant names and there life time care.
-                    I want the Response having the structure
-                    "Details Summary"
-                    "Step by step Detailed Planner according to the inputs"
-                    "Provide best 5 relevant resources from this list {BlogURL} as Resources
-                    '''
-                    
-                response = get_gemini_pro(prompt, Stream=True)
-                responsecontainer = st.container(border=True, height=300)
-                # Display the response
-                responsecontainer.subheader("Your Customized Plan: ")
-                responsecontainer.write_stream(i.text for i in response)
-                # response = get_gemini_pro(prompt, Stream=False)
-                # htmlstring = response.text.replace('```', '')
-                # create_pdf(htmlstring)
-                # st.success("PDF generated successfully.")
-                # with open("GardensAlivePlanner.pdf", "rb") as file:
-                #     st.download_button(
-                #         label="Download Pdf",
-                #         data=file,
-                #         file_name="GardensAlivePlanner.pdf",
+            a,b,c = st.columns([1,2,1])
+            with b:
+                Get = st.button("Get Your Customized Gardening Plan")
+            if Get:
+                if validate_email(Email):
+                    pass
+                else:
+                    st.error('Enter a Valid Email ID!')
+                if LengthSpace != 0.00 and BreadthSpace !=0.00:
+                    prompt = f'''You are a botanical expert, 
+                        I am from {Location} and my zone is {zone}, Here type of soil is {soiltype}, I am at {Gardening_Experience} level in gardening, I want to have {PlantPrefrence} in my garden.
+                        I want to do in {Style} style gardening.  My budget is {Budget}, time is {Time} and Maintenance preference is {Maintenance}. 
+                        I am allergic from {Allergies}. I have {LengthSpace} X {BreadthSpace} feet space for my gardening region.
+                        Provide me a detailed Gardening Plan with the plant names and there life time care.
+                        I want the Response having the structure
+                        "Details Summary"
+                        "Step by step Detailed Planner according to the inputs"
+                        "Provide best 5 relevant resources from this list {BlogURL} as Resources
+                        '''
                         
-                #     )
-
-            else:
-                st.warning("Please provide valid dimensions of your garden!")
+                    response = get_gemini_pro(prompt, Stream=True)
+                    responsecontainer = st.container(border=True, height=300)
+                    responsecontainer.subheader("Your Customized Plan: ")
+                    responsecontainer.write_stream(i.text for i in response)
+                    document = {"email": Email, "response": response.text}
+                    result = table.update_one({"email": Email}, {"$set": {"response": response.text}}, upsert=True)
+                    st.write(f"You can also check your plan again using your email: {Email}.")
+                    
+                else:
+                    st.warning("Please provide valid dimensions of your garden!")
+        else:
+            GetLast = st.button('GetLastResponse')
+            if GetLast:
+                if validate_email(Email):
+                    pass
+                else:
+                    st.error("Invalid Email ID! Please enter Valid Email Id.")
+                responses = table.find({"email": Email})
+                st.write_stream(i['response'] for i in responses)
+                
     except Exception as e:
-        st.info('AI is down due to high requests. Get Back to us after a moment.')
-        print(f"Error Occured {e}")
+        st.info('AI is down due to high requests. ]Get Back to us after a moment.')
+    finally:
+        Client.close()
 #-------------------------------------------------------------------------------------------------------------------------------------------------------- 
 with tab2:
     # Input for the user to ask a question
@@ -141,7 +154,7 @@ with tab2:
                 st.warning('Please provide atleast a question to get your answer.', icon="ℹ️")
     except Exception as e:
         st.info('AI is down due to high requests. Get Back to us after a moment.')
-        print(f"Error Occured {e}")
+        # st.warning(f'Error occurred: {e}')
 
 with tab3:
     
@@ -182,5 +195,4 @@ with tab3:
             st.session_state.messages.append({"role": "assistant", "content": textresponse})
     except Exception as e:
         st.info('AI is down due to high requests. Get Back to us after a moment.')
-        print(f"Error Occured {e}")
 
