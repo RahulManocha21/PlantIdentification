@@ -21,6 +21,13 @@ def get_gemini_pro(input, Stream):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(input, stream=Stream)
     return response
+    
+def validate_email(email):
+    email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if re.match(email_pattern, email):
+        return True
+    else:
+        return False
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------
 # initialize our streamlit app
