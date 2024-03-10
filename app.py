@@ -98,6 +98,7 @@ with tab1:
                 st.write_stream(i['response'] for i in responses)
                 
     except Exception as e:
+        st.error(f'error occured! : {e}')
         st.info('AI is down due to high requests. ]Get Back to us after a moment.')
     finally:
         Client.close()
