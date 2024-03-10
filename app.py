@@ -35,9 +35,8 @@ st.set_page_config(page_title="🪴 GardensAlive AI",initial_sidebar_state= "col
 tab1, tab2, tab3 = st.tabs(["GardensAlive AI Planner", "Ask your Questions", "Chat with AI Bot"])
 with tab1:
     try:
-        st.markdown("""<h1 style="color:#50EA03; text-align:center  "> GardensAlive AI☘️</h1> """, unsafe_allow_html=True)
-        # st.header("GardensAlive AI Planner☘️")
-        # st.header("Accuracy is a mind-reading act; just drop some hints, and We'll perform the magic.")
+        st.markdown("""<h1 style="color:#216202; text-align:center  "> GardensAlive AI☘️</h1> """, unsafe_allow_html=True)
+        st.markdown("""<h6 style="color:#039F20; text-align:center "> Your garden is practically begging for a makeover, and guess who's holding the magic wand?<br> Yup, it's you! Share a few secrets, and let's conjure up a garden masterpiece.</h6> """, unsafe_allow_html=True)
         df = pd.read_csv('blog.csv', header=None, names=['loc'])
         BlogURL = df['loc'].tolist()
         BlogURL.remove('loc')
