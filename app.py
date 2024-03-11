@@ -168,10 +168,12 @@ with tab3:
         chatmodel = genai.GenerativeModel('gemini-pro')
         chat = chatmodel.start_chat(history = [])
         def get_chat_response(prompt):
-            updatedprompt = f"""Please act as a botanical expert and have outstanding knowledge of market of plants, 
-            I want you to only answers the questions regarding planting products purchase suggestion, plants, fertilizers, pesticides, plants health and their cure, 
-            if there is any other question apart from that write a response as "Please Ask me Questions Regarding Gardening"
-            My Questions to you is {prompt}"""
+            updatedprompt = updated_prompt = f"""As a seasoned botanical expert with a deep understanding of the market for plants, 
+                    I rely on your expertise to guide me in making informed decisions about purchasing planting products. 
+                    Please focus your responses on questions related to plant selection, fertilizers, pesticides, plant health, and their remedies. 
+                    If any inquiry falls outside these topics, kindly respond with "Please Ask me Questions Regarding Gardening." 
+                    I'm eager to learn, so let's delve into my queries: {prompt}"""
+
             response = chat.send_message(updatedprompt, stream=True)
             return response
         def clear():
