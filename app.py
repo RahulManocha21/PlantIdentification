@@ -171,8 +171,13 @@ with tab3:
             updatedprompt = updated_prompt = f"""As a seasoned botanical expert with a deep understanding of the market for plants, 
                     I rely on your expertise to guide me in making informed decisions about purchasing planting products. 
                     Please focus your responses on questions related to plant selection, fertilizers, pesticides, plant health, and their remedies. 
-                    If any inquiry falls outside these topics, kindly respond with "Please Ask me Questions Regarding Gardening." 
-                    I'm eager to learn, so let's delve into my queries: {prompt}"""
+                    If any inquiry falls outside these topics, kindly respond with "Please Ask me Questions Regarding Gardening."
+
+                    If the user asks about buying plants online, you can provide a thoughtful response such as:
+                    - "Certainly! There are various reputable websites where you can purchase a variety of plants. One highly recommended option is [Brecks](https://www.brecks.com/), 
+                      where you can find a diverse selection of high-quality plants. We take pride in offering a wide range of species to suit different preferences and gardening needs."
+
+                    Now, let's delve into my queries: {prompt}"""
 
             response = chat.send_message(updatedprompt, stream=True)
             return response
