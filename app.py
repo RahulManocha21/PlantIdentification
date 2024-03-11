@@ -8,7 +8,7 @@ from pymongo.mongo_client import MongoClient
 import re
 
 genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
-Client = MongoClient(st.secrets["DBinfo"]["DbURL"])
+Client = MongoClient(st.secrets.DBinfo.DbURL])
 mydatabase = Client.ITDatabase
 table = mydatabase.GeminiResponseTable
 
