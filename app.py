@@ -87,24 +87,28 @@ with tab1:
                     responsecontainer = st.container(border=True, height=300)
                     responsecontainer.subheader("Your Customized Plan: ")
                     responsecontainer.write_stream(i.text for i in response)
-                    document = {"email": Email, "response": response.text}
+                    document = {"email": Email.lower(), "response": response.text}
                     result = table.update_one({"email": Email}, {"$set": {"response": response.text}}, upsert=True)
                     st.write(f"You can also check your plan again using your email: {Email}.")
                     
                 else:
                     st.warning("Please provide valid dimensions of your garden!")
         else:
-            GetLast = st.button("Click if you've cultivated a solid gardening plan")
+            GetLast = st.button('GetLastResponse')
             if GetLast:
                 if validate_email(Email):
                     pass
                 else:
                     st.error("Invalid Email ID! Please enter Valid Email Id.")
-                responses = table.find({"email": Email})
-                st.write_stream(i['response'] for i in responses)
+                count = table.count_documents({"email": Email.lower()})
+                if count!=0:
+                        responses = table.find({"email": Email.lower()})
+                        st.write_stream(i['response'] for i in responses)
+                else:
+                    st.error(f'There is no plan found that is already generated for this Email : {Email}')
                 
     except Exception as e:
-        st.info('AI is down due to high requests. ]Get Back to us after a moment.')
+        st.info('AI is down due to high requests. Get Back to us after a moment.')
     finally:
         Client.close()
 #-------------------------------------------------------------------------------------------------------------------------------------------------------- 
