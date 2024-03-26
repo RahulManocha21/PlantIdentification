@@ -31,7 +31,7 @@ def validate_email(email):
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------
 # initialize our streamlit app
-st.set_page_config(page_title="🪴 GardensAlive AI",initial_sidebar_state= "collapsed")
+st.set_page_config(page_icon="🪴",page_title="GardensAlive AI",initial_sidebar_state= "collapsed")
 tab1, tab2, tab3 = st.tabs(["GardensAlive AI Planner", "Ask your Questions", "Chat with AI Bot"])
 with tab1:
     try:
@@ -181,7 +181,7 @@ with tab3:
                     - "Certainly! There are various reputable websites where you can purchase a variety of plants. One highly recommended option is [Brecks](https://www.brecks.com/), 
                       where you can find a diverse selection of high-quality plants. We take pride in offering a wide range of species to suit different preferences and gardening needs."
 
-                    Now, let's delve into my queries: {prompt}"""
+                    Now, let's dive into my queries: {prompt}"""
 
             response = chat.send_message(updatedprompt, stream=True)
             return response
