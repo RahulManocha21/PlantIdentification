@@ -1,11 +1,13 @@
 import streamlit as st
 from PIL import Image
 import google.generativeai as genai
+from dotenv import load_dotenv
 import os
-import time
 import pandas as pd
 from pymongo.mongo_client import MongoClient
 import re
+from captcha.image import ImageCaptcha
+import random
 
 genai.configure(api_key=st.secrets["SecretKey"]["GOOGLE_API_KEY"])
 Client = MongoClient("mongodb+srv://rahulmanocha21:mongodb@geminiresponse.f6hhnhi.mongodb.net/?retryWrites=true&w=majority&appName=GeminiResponse")
