@@ -202,8 +202,8 @@ with tab2:
                     st.warning('Please provide atleast a question to get your answer.', icon="ℹ️")
             
     except Exception as e:
-        #st.info('AI is down due to high requests. Get Back to us after a moment.')
-        st.warning(f'Error occurred: {e}')
+        st.info('AI is down due to high requests. Get Back to us after a moment.')
+        #st.warning(f'Error occurred: {e}')
 
 with tab3:
     
