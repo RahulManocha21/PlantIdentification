@@ -166,7 +166,7 @@ with tab2:
     #--------------------------------------------------------------------------------------------------------------------------------------------------------
     # If the button is clicked
     try:
-        with st.form("form", border=False):
+        with st.form("QAform", border=False):
             status = generate_captcha()
             
             if st.form_submit_button('Get Response') and status:
